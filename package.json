@@ -1,7 +1,7 @@
 {
-  "name": "react-slingshot",
-  "version": "1.0.1",
-  "description": "Starter kit for creating apps with React and Redux",
+  "name": "react-reversi",
+  "version": "1.0.0",
+  "description": "Example React, Redux, Socket.IO, Redis",
   "scripts": {
     "prestart": "npm run remove-dist",
     "start": "parallelshell \"npm run test:watch\" \"npm run open\"",
@@ -19,7 +19,7 @@
     "test": "cross-env NODE_ENV=test mocha --reporter progress --compilers js:babel/register --recursive \"./src/**/*.spec.js\"",
     "test:watch": "npm run --watch"
   },
-  "author": "Cory House",
+  "author": "Norm Cradall",
   "license": "MIT",
   "dependencies": {
     "fs": "0.0.2",

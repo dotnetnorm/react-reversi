@@ -23,6 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "fs": "0.0.2",
+    "ioredis": "1.14.0",
     "json-loader": "0.5.4",
     "react": "0.14.0",
     "react-dom": "0.14.0",

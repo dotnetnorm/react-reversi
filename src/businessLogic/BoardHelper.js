@@ -177,7 +177,7 @@ let BoardHelper =  function()
   let processWest = function(column, board, row, player) {
     let locations = [];
     let found = false;
-    for (var i = column - 1; i > 0; i--) {
+    for (var i = column - 1; i > -1; i--) {
       let value = board[row][i];
       if (value == -player) locations.push({row: row, column: i});
       if (value == player) {

@@ -10,7 +10,7 @@ var redis = new Redis();
 var gamesAwaiting=[{gameName:"Test Game"}];
 var gamesInProgress = [];
 var port = process.env.PORT || 1337;
-app.use(express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, './dist')));
 
 io.on('connection', function (socket) {
   console.log('User connected. Socket id %s', socket.id);

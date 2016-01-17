@@ -2,13 +2,7 @@ import React from "react";
 
 
 export default class Board extends React.Component{
-    constructor(props){
-      super(props);
-      this.hoverLocation=this.hoverLocation.bind(this);
-    }
-   hoverLocation(value,event){
-     console.log(value);
-   }
+
 
   render(){
     let width="75px";
@@ -20,9 +14,7 @@ export default class Board extends React.Component{
     let empty = {};
     let rowCount=-1;
     return (<div>
-            <div style={{float:"left"}}>
-              {settings.currentPlayer}:{settings.goodLocation ? "yes" : "no"} <button type="button" onClick={actions.playerPass.bind(this,this.props)}>Pass</button>
-            </div>
+
             <div style={{width:"700px"}}>
             {settings.board.map((r)=>{
               rowCount++;
@@ -31,7 +23,7 @@ export default class Board extends React.Component{
                 {r.map((c)=>{columnCount++;
 
                  return <div style={{minWidth:width,minHeight:"75px",float:"left",border:"1px solid black",margin:"5px"}}
-                             onClick={actions.playerMove.bind(this,this.props)}
+                             onClick={actions.playerMove.bind(this,settings)}
                              onMouseOver={actions.hoverLocation.bind(this,this.props,{row:rowCount,column:columnCount})} key={`${rowCount}:${columnCount}`}>
                         <div style={c == 0 ? empty : (c == 1 || c==10) ? player1Style : player2Style}></div>
 

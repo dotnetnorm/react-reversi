@@ -4,33 +4,16 @@
 /* global __DEVELOPMENT__, __CLIENT__, __DEVTOOLS__ */
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import middleware from '../reducers/remoteActionMiddleWare';
-//import rootReducer from '../reducers/index';
-import io from "socket.io-client";
+
 import { devTools, persistState } from 'redux-devtools';
 import reversiGameState from "../reducers/reversiGame";
-const socket = io(`${location.protocol}//${location.hostname}:8080`);
-socket.on('state', state =>
-  store.dispatch(setState(state))
-);
+
 const __DEVELOPMENT__ = true;
 
-//export default function configureStore(initialState) {
-//  const store = createStore(rootReducer, initialState);
-//  console.log("initial state ", initialState);
-//  if (module.hot) {
-//    // Enable Webpack hot module replacement for reducers
-//    module.hot.accept('../reducers', () => {
-//      const nextReducer = require('../reducers');
-//      store.replaceReducer(nextReducer);
-//    });
-//  }
-//
-//  return store;
-//}
 
 
 
-export default function configureStore(initialState) {
+export default function configureStore(socket) {
 
   let finalCreateStore;
 

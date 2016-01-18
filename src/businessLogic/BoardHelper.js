@@ -1,54 +1,52 @@
+let BoardHelper = function () {
+  let resetPossibleMoves = function (board, lastPosition) {
 
-let BoardHelper =  function()
-{
-  let resetPossibleMoves=function(board, lastPosition) {
+    for (var r = 0; r < 8; r++) {
+      for (var c = 0; c < 8; c++) {
+        let value = board[r][c];
+        if (value != 0 && ((value % 10) == 0)) {
+          board[r][c] = -(value / 10);
+        }
+      }
 
-  for (var r = 0; r < 8; r++) {
-    for (var c = 0; c < 8; c++) {
-      let value = board[r][c];
-      if (value != 0 && ((value % 10) == 0)) {
-        board[r][c] = -(value / 10);
+      if (lastPosition) {
+
+        board[lastPosition.location.row][lastPosition.location.column] = lastPosition.value;
       }
     }
 
-    if (lastPosition) {
+    return board;
 
-      board[lastPosition.location.row][lastPosition.location.column] = lastPosition.value;
-    }
+  }
+  let moveIsPossible = function (location, player, board) {
+    //we need to check the 9 spots around the location
+
+    let row = location.row;
+    let column = location.column;
+    let otherPlayer = player == 1 ? 2 : 1;
+    let locations = GetPossibleFlips(location.row, location.column, player, board);
+
+    return locations;
+  }
+  let GetPossibleFlips = function (row, column, player, board) {
+    let found = false;
+    let locations = [];
+
+    locations.push(processNorth(row, board, column, player));
+    locations.push(processNorthEast(row, column, board, player));
+    locations.push(processEast(column, board, row, player));
+    locations.push(processSouthEast(row, column, board, player));
+    locations.push(processSouth(row, board, column, player));
+    //console.log("found locations", locations);
+    locations.push(processSouthWest(row, column, board, player));
+    locations.push(processWest(column, board, row, player));
+    locations.push(processNorthWest(row, column, board, player));
+
+    return locations;
   }
 
-  return board;
-
-}
-  let moveIsPossible=function(location, player, board) {
-  //we need to check the 9 spots around the location
-
-  let row = location.row;
-  let column = location.column;
-  let otherPlayer = player == 1 ? 2 : 1;
-  let locations = GetPossibleFlips(location.row, location.column, player, board);
-
-  return locations;
-}
-  let  GetPossibleFlips = function(row, column, player, board) {
-  let found = false;
-  let locations = [];
-
-  locations.push(processNorth(row, board, column, player));
-  locations.push(processNorthEast(row, column, board, player));
-  locations.push(processEast(column, board, row, player));
-  locations.push(processSouthEast(row, column, board, player));
-  locations.push(processSouth(row, board, column, player));
-  //console.log("found locations", locations);
-  locations.push(processSouthWest(row, column, board, player));
-  locations.push(processWest(column, board, row, player));
-  locations.push(processNorthWest(row, column, board, player));
-
-  return locations;
-}
-
-  let processSouthEast =function(currentRow, currentColumn, board, player) {
-   // console.log("processing South East");
+  let processSouthEast = function (currentRow, currentColumn, board, player) {
+    // console.log("processing South East");
     let locations = [];
     let found = false;
     currentRow = currentRow + 1;
@@ -57,7 +55,7 @@ let BoardHelper =  function()
       let value = board[currentRow][currentColumn];
       if (value == -player) {
         locations.push({row: currentRow, column: currentColumn});
-       // console.log("good Position Found");
+        // console.log("good Position Found");
       }
       if (value == player) {
         found = true;
@@ -73,8 +71,7 @@ let BoardHelper =  function()
     return [];
   }
 
-  let processNorthEast = function(row, column, board, player)
-  {
+  let processNorthEast = function (row, column, board, player) {
     let locations = [];
     let found = false;
     let currentRow = row - 1;
@@ -96,7 +93,7 @@ let BoardHelper =  function()
 
     return found ? locations : [];
   }
-  let processNorth =function(row, board, column, player) {
+  let processNorth = function (row, board, column, player) {
     let locations = [];
     let found = false;
     for (var i = row - 1; i > -1; i--) {
@@ -113,7 +110,7 @@ let BoardHelper =  function()
     return found ? locations : [];
   }
 
-  let processEast=function(column, board, row, player) {
+  let processEast = function (column, board, row, player) {
     let locations = [];
     let found = false;
     for (var i = column + 1; i < 8; i++) {
@@ -130,19 +127,19 @@ let BoardHelper =  function()
     return found ? locations : [];
   }
 
-  let processSouth = function(row, board, column, player) {
+  let processSouth = function (row, board, column, player) {
     let locations = [];
-   // console.log("processing south", row, column);
+    // console.log("processing south", row, column);
     let found = false;
     for (var i = row + 1; i < 8; i++) {
       let value = board[i][column];
-     // console.log(`${i}:${column}-${value}, player:${player}`);
+      // console.log(`${i}:${column}-${value}, player:${player}`);
       if (value == -(player)) {
-       // console.log("good location going south");
+        // console.log("good location going south");
         locations.push({row: i, column: column});
       }
       if (value == player) {
-       // console.log("location is player");
+        // console.log("location is player");
         found = true;
         break;
       }
@@ -153,7 +150,7 @@ let BoardHelper =  function()
     return found ? locations : [];
   }
 
-  let processSouthWest = function(row, column, board, player) {
+  let processSouthWest = function (row, column, board, player) {
     let locations = [];
     let found = false;
     let currentRow = row + 1;
@@ -174,7 +171,7 @@ let BoardHelper =  function()
     return found ? locations : [];
   }
 
-  let processWest = function(column, board, row, player) {
+  let processWest = function (column, board, row, player) {
     let locations = [];
     let found = false;
     for (var i = column - 1; i > -1; i--) {
@@ -191,7 +188,7 @@ let BoardHelper =  function()
     return found ? locations : [];
   }
 
-  let processNorthWest = function(row, column, board, player) {
+  let processNorthWest = function (row, column, board, player) {
     let currentRow = row - 1;
     let currentColumn = column - 1;
     let locations = [];
@@ -213,13 +210,9 @@ let BoardHelper =  function()
   }
 
 
-
-
-
-
   return {
 
-    setupInitialBoard:function() {
+    setupInitialBoard: function () {
 
       let board = [];
 
@@ -240,12 +233,12 @@ let BoardHelper =  function()
         board.push(newRow);
       }
 
-     // console.log(board);
+      // console.log(board);
       return board;
     },
 
-    resetPossibleMoves:function(board, lastPosition) {
-    //  console.log(board);
+    resetPossibleMoves: function (board, lastPosition) {
+      //  console.log(board);
       for (var r = 0; r < 8; r++) {
         for (var c = 0; c < 8; c++) {
           let value = board[r][c];
@@ -264,7 +257,7 @@ let BoardHelper =  function()
 
     },
 
-    updateBoard:function(newState, location) {
+    updateBoard: function (newState, location) {
 
       let board = resetPossibleMoves(newState.board, newState.lastPosition);
       let value = board[location.row][location.column];
@@ -294,7 +287,7 @@ let BoardHelper =  function()
 
       return newState;
     },
-    updateBoardForMove:function(state, player){
+    updateBoardForMove: function (state, player) {
 
       state.flipLocations.forEach((row)=> {
         row.forEach((location)=> {

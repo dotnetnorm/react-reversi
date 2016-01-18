@@ -1,15 +1,16 @@
-
+var port = process.env.PORT || 1337;
 var express = require('express'),
   app = express(),
   path = require('path'),
-  http = require('http').Server(app),
-  io = require('socket.io')(http);
+  server = app.listen(port),
+  //http = require('http').Server(app),
+  io = require('socket.io')(server);
   //feed = require('./feed');
 var Redis = require('ioredis');
 var redis = new Redis();
 var gamesAwaiting=[{gameName:"Test Game"}];
 var gamesInProgress = [];
-var port = process.env.PORT || 1337;
+
 app.use(express.static(path.join(__dirname, './dist')));
 
 io.on('connection', function (socket) {
@@ -62,4 +63,4 @@ io.on('connection', function (socket) {
 });
 
 
-http.listen(port);
+//http.listen(port);

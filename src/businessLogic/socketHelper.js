@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 import configureStore from "../store/configureStore";
 import * as actions from "../actions/reversiActions";
-const socket = io(`${location.protocol}//${location.hostname}:1337`);
+const socket = io(`${location.protocol}//${location.hostname}:80`);
 var store = null;
 
 export default class Socket
